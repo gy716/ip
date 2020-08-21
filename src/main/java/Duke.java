@@ -6,13 +6,15 @@ public class Duke {
 
         System.out.println("Hello, I am Duke!");
         System.out.println("What can I do for you?");
-        String task;
+        String commands;
         while(true) {
-            task = in.next();
-            if(task.equals("list")) {
-                System.out.println("Here is the list: ");
-            }else if(task.equals("exit")) {
-                System.out.println("Good bye! Hope to see you again soon!");
+            commands = in.next();
+            if(commands.equals("list")) {
+                System.out.println("    "+"Here is the list: ");
+            }else if(commands.equals("blah")){
+                System.out.println("    "+"blah");
+            }else if(commands.equals("exit")) {
+                System.out.println("    "+"Good bye! Hope to see you again soon!");
                 break;
             }
         }
