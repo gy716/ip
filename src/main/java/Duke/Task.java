@@ -1,3 +1,4 @@
+package Duke;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -14,7 +15,7 @@ public class Task {
     }
 
     public void list() {
-        System.out.println("    "+taskNumber+". "+description);
+        System.out.println("    "+taskNumber+".["+getStatusIcon()+"] "+description);
     }
 
     public String getStatusIcon() {
