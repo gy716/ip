@@ -10,12 +10,14 @@ public class Task {
         this.taskNumber = taskNumber;
     }
 
-    public void showPrompt() {
-        System.out.println("    "+description+" added");
+    public void showAdded() {
+        System.out.println("\tGot it! I've added this task:");
+        System.out.println("\t\t[T]["+getStatusIcon()+"] "+description);
+        System.out.println("\tNow you have "+taskNumber+" tasks in the list.");
     }
 
     public void list() {
-        System.out.println("    "+taskNumber+".["+getStatusIcon()+"] "+description);
+        System.out.println("\t"+taskNumber+".[T]["+getStatusIcon()+"] "+description);
     }
 
     public String getStatusIcon() {
