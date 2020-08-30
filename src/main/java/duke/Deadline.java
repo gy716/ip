@@ -10,11 +10,11 @@ public class Deadline extends Task{
 
     public void showAdded() {
         System.out.println("\tGot it! I've added this task:");
-        System.out.println("\t\t[D]["+getStatusIcon()+"] "+description+" (by: "+by+" )");
+        System.out.println("\t\t[D]["+getStatusIcon()+"] "+description+" (by: "+by+")");
         System.out.println("\tNow you have "+taskNumber+" tasks in the list.");
     }
 
     public void list() {
-        System.out.println("\t"+taskNumber+".[D]["+getStatusIcon()+"] "+description+" (by: "+by+" )");
+        System.out.println("\t"+taskNumber+".[D]["+getStatusIcon()+"] "+description+" (by: "+by+")");
     }
 }
