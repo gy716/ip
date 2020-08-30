@@ -14,6 +14,7 @@ public class Duke {
 
     void processCommands(){
         int i = 0;
+
         while(true) {
 
             commands = in.nextLine();
@@ -47,7 +48,7 @@ public class Duke {
 
             } else if (words[0].equals("deadline")) {
 
-                String by = commands.substring(commands.indexOf("/by") + 4);
+                String by = commands.substring(commands.indexOf("/by") + "/by ".length());
                 commands = commands.substring(9, commands.indexOf("/by") - 1);
                 tasks[i] = new Deadline(commands, i + 1, by);
                 tasks[i].showAdded();
@@ -55,7 +56,7 @@ public class Duke {
 
             } else if (words[0].equals("event")) {
 
-                String at = commands.substring(commands.indexOf("/at") + 4);
+                String at = commands.substring(commands.indexOf("/at") + "/at ".length());
                 commands = commands.substring(6, commands.indexOf("/at") - 1);
                 tasks[i] = new Event(commands, i + 1, at);
                 tasks[i].showAdded();
