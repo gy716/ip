@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 import java.util.Scanner;
 
 public class Duke {
@@ -38,9 +38,9 @@ public class Duke {
                 System.out.println("    Good Bye! Hope to see you again");
                 break;
 
-            } else if (words[0].equals("Todo")) {
+            } else if (words[0].equals("todo")) {
 
-                commands = commands.replaceAll("Todo ", "");
+                commands = commands.replaceAll("todo ", "");
                 tasks[i] = new Task(commands, i + 1);
                 tasks[i].showAdded();
                 i++;
