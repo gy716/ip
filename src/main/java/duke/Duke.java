@@ -13,44 +13,27 @@ public class Duke {
     }
 
     void processCommands(){
-
         int i = 0;
-
         while(true) {
-
             commands = in.nextLine();
             String[] words = commands.split(" ");
-
             if (commands.equals("list")) {
-
                 processList(i);
-
             } else if (commands.equals("exit")) {
-
                 System.out.println("\tGood Bye! Hope to see you again");
                 break;
-
             } else if (words[0].equals("todo")) {
-
                 processTodo(i);
                 i++;
-
             } else if (words[0].equals("deadline")) {
-
                 processDeadline(i);
                 i++;
-
             } else if (words[0].equals("event")) {
-
                 processEvent(i);
                 i++;
-
             } else if(words[0].equals("done")){
-
                 processDone(i, words);
-
             }
-
         }
     }
 
@@ -89,7 +72,6 @@ public class Duke {
         System.out.println("\tNice! I've marked this work as done:");
         System.out.println("\t\t[\u2713] "+tasks[taskIndex-1].description);
     }
-
 
     public static void main(String[] args) {
         Duke d1 = new Duke();
