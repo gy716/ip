@@ -20,7 +20,7 @@ public class Duke {
             if (commands.equals("list")) {
                 processList(i);
             } else if (commands.equals("exit")) {
-                System.out.println("\tGood Bye! Hope to see you again");
+                processExit();
                 break;
             } else if (words[0].equals("todo")) {
                 processTodo(i);
@@ -50,6 +50,10 @@ public class Duke {
         commands = commands.replaceAll("todo ", "");
         tasks[i] = new Task(commands, i + 1);
         tasks[i].showAdded();
+    }
+
+    void processExit() {
+        System.out.println("\tGood Bye! Hope to see you again");
     }
 
     void processDeadline(int i) {
