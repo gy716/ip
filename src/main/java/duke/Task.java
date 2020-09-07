@@ -16,7 +16,7 @@ public class Task {
         System.out.println("\tNow you have "+taskNumber+" tasks in the list.");
     }
 
-    public void list() {
+    public void printTask() {
         System.out.println("\t"+taskNumber+".[T]["+getStatusIcon()+"] "+description);
     }
 
