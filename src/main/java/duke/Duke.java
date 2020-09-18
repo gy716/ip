@@ -1,11 +1,12 @@
 package duke;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     Scanner in = new Scanner(System.in);
     private String commands;
-    Task[] tasks = new Task[100];
+    ArrayList<Task> tasks = new ArrayList<>();
 
     Duke() {
         System.out.println("Hello, I am Duke!");
@@ -14,7 +15,7 @@ public class Duke {
 
     void processCommands() {
 
-        int i = 0;
+        int taskIndex = 0;
 
         while(true) {
 
@@ -23,7 +24,7 @@ public class Duke {
 
             if (commands.equals("list")) {
 
-                processList(i);
+                processList();
 
             } else if (commands.equals("exit")) {
 
@@ -33,8 +34,8 @@ public class Duke {
             } else if (words[0].equals("todo")) {
 
                 try {
-                    processTodo(i);
-                    i++;
+                    processTodo(taskIndex);
+                    taskIndex++;
                 } catch (ArrayIndexOutOfBoundsException e){
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -42,8 +43,8 @@ public class Duke {
             } else if (words[0].equals("deadline")) {
 
                 try {
-                    processDeadline(i);
-                    i++;
+                    processDeadline(taskIndex);
+                    taskIndex++;
                 } catch (TimeIsEmptyException e){
                     System.out.println("☹ OOPS!!! The time of deadline cannot be empty.");
                 } catch (TaskIsEmptyException e){
@@ -53,8 +54,8 @@ public class Duke {
             } else if (words[0].equals("event")) {
 
                 try {
-                    processEvent(i);
-                    i++;
+                    processEvent(taskIndex);
+                    taskIndex++;
                 } catch (TimeIsEmptyException e){
                     System.out.println("☹ OOPS!!! The time of event cannot be empty.");
                 } catch (TaskIsEmptyException e){
@@ -65,24 +66,35 @@ public class Duke {
 
                 try {
                     processDone(words);
-                } catch (ArrayIndexOutOfBoundsException e){
-                    System.out.println("☹ OOPS!!! The task number of a done cannot be empty.");
-                } catch (NullPointerException e){
+                } catch (IndexOutOfBoundsException e){
                     System.out.println("☹ OOPS!!! I cannot find this task in the list.");
                 }
 
-            } else {
+            } else if(words[0].equals("delete")){
+
+                try {
+                    processDelete(words, taskIndex);
+                    taskIndex--;
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("☹ OOPS!!! The task cannot be empty");
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("☹ OOPS!!! I cannot find this task in the list.");
+                }
+
+            }
+            else {
+
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
             }
         }
     }
 
-    void processList(int i) {
+    void processList() {
         System.out.println("\tHere are the list:");
-        if (tasks[0] != null) {
-            for (int k = 0; k < i; k++) {
-                tasks[k].printTask();
-            }
+        for(int i = 0; i < tasks.size(); i++){
+            System.out.print("\t\t"+(i+1)+" ");
+            tasks.get(i).printTask();
         }
     }
 
@@ -95,8 +107,9 @@ public class Duke {
         if(commands.isBlank()) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        tasks[i] = new Task(commands, i + 1);
-        tasks[i].showAdded();
+        tasks.add(i, new Task(commands));
+        tasks.get(i).showAdded();
+        System.out.println("\tNow you have "+(i+1)+" tasks in the list");
     }
 
     void processDeadline(int i) throws TimeIsEmptyException, TaskIsEmptyException {
@@ -121,8 +134,9 @@ public class Duke {
             throw new TaskIsEmptyException();
         }
 
-        tasks[i] = new Deadline(commands, i + 1, by);
-        tasks[i].showAdded();
+        tasks.add(i, new Deadline(commands, by));
+        tasks.get(i).showAdded();
+        System.out.println("\tNow you have "+(i+1)+" tasks in the list");
 
     }
 
@@ -148,16 +162,24 @@ public class Duke {
             throw new TaskIsEmptyException();
         }
 
-        tasks[i] = new Event(commands, i + 1, at);
-        tasks[i].showAdded();
+        tasks.add(i, new Event(commands, at));
+        tasks.get(i).showAdded();
+        System.out.println("\tNow you have "+(i+1)+" tasks in the list");
 
     }
 
     void processDone(String[] words) {
-        int taskIndex = Integer.parseInt(words[1]);
-        tasks[taskIndex-1].isDone = true;
+        int doneIndex = Integer.parseInt(words[1]);
+        tasks.get(doneIndex-1).isDone = true;
         System.out.println("\tNice! I've marked this work as done:");
-        System.out.println("\t\t[\u2713] "+tasks[taskIndex-1].description);
+        System.out.println("\t\t[\u2713] "+tasks.get(doneIndex-1).description);
+    }
+
+    void processDelete(String[] words, int i) {
+        int deleteIndex = Integer.parseInt(words[1]);
+        tasks.get(deleteIndex-1).showDeleted();
+        System.out.println("\tNow you have "+(i-1)+" tasks in the list");
+        tasks.remove(deleteIndex-1);
     }
 
     public static void main(String[] args) {
