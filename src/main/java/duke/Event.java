@@ -22,6 +22,15 @@ public class Event extends Task{
 
     @Override
     public void printTask() {
-        System.out.println("[E]"+"["+getStatusIcon()+"]"+description+" (at: "+at+")");
+        System.out.println("[E]"+"["+getStatusIcon()+"] "+description+" (at: "+at+")");
+    }
+
+    @Override
+    public String toFileFormat() {
+        if(isDone) {
+            return "E,1,"+description+","+at;
+        }else {
+            return "E,0,"+description+","+at;
+        }
     }
 }

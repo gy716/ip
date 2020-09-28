@@ -22,6 +22,15 @@ public class Deadline extends Task{
 
     @Override
     public void printTask() {
-        System.out.println("[D]"+"["+getStatusIcon()+"]"+description+" (by: "+by+")");
+        System.out.println("[D]"+"["+getStatusIcon()+"] "+description+" (by: "+by+")");
+    }
+
+    @Override
+    public String toFileFormat() {
+        if(isDone) {
+            return "D,1,"+description+","+by;
+        }else {
+            return "D,0,"+description+","+by;
+        }
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Duke {
 
     Scanner in = new Scanner(System.in);
@@ -30,26 +31,27 @@ public class Duke {
                 Scanner s = new Scanner(f);
                 taskIndex = 0;
                 while(s.hasNextLine()){
-                    String[] words = s.nextLine().split("\\|");
-                    if(words[0].equals("T ")){
+                    String[] words = s.nextLine().split(",");
+                    if(words[0].equals("T")){
                         tasks.add(taskIndex, new Task(words[2]));
-                        if(words[1].equals(" 1 ")) tasks.get(taskIndex).isDone = true;
-                        if(words[1].equals(" 0 ")) tasks.get(taskIndex).isDone = false;
+                        if(words[1].equals("1")) tasks.get(taskIndex).isDone = true;
+                        if(words[1].equals("0")) tasks.get(taskIndex).isDone = false;
                         taskIndex++;
                     }
-                    if(words[0].equals("D ")){
+                    if(words[0].equals("D")){
                         tasks.add(taskIndex, new Deadline(words[2], words[3]));
-                        if(words[1].equals(" 1 ")) tasks.get(taskIndex).isDone = true;
-                        if(words[1].equals(" 0 ")) tasks.get(taskIndex).isDone = false;
+                        if(words[1].equals("1")) tasks.get(taskIndex).isDone = true;
+                        if(words[1].equals("0")) tasks.get(taskIndex).isDone = false;
                         taskIndex++;
                     }
-                    if(words[0].equals("E ")){
+                    if(words[0].equals("E")){
                         tasks.add(taskIndex, new Event(words[2], words[3]));
-                        if(words[1].equals(" 1 ")) tasks.get(taskIndex).isDone = true;
-                        if(words[1].equals(" 0 ")) tasks.get(taskIndex).isDone = false;
+                        if(words[1].equals("1")) tasks.get(taskIndex).isDone = true;
+                        if(words[1].equals("0")) tasks.get(taskIndex).isDone = false;
                         taskIndex++;
                     }
                 }
+
             }
 
         }catch (IOException e){
@@ -58,10 +60,27 @@ public class Duke {
 
     }
 
-    void appendToFile(File filePath, String text) throws IOException {
-        FileWriter fw = new FileWriter(filePath,true);
+    void appendToFile(File file, String text) throws IOException {
+        FileWriter fw = new FileWriter(file,true);
         fw.write(text);
         fw.close();
+    }
+
+    void writeToFile(File file, String text) throws IOException {
+        FileWriter fw = new FileWriter(file);
+        fw.write(text);
+        fw.close();
+    }
+
+    void updateFile() {
+        try {
+            writeToFile(f,"");
+            for (Task task : tasks) {
+                appendToFile(f, task.toFileFormat() + System.lineSeparator());
+            }
+        } catch (IOException e){
+            System.out.println("Some errors occurred.");
+        }
     }
 
     void processCommands() {
@@ -136,6 +155,7 @@ public class Duke {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
             }
+            updateFile();
         }
     }
 
@@ -155,14 +175,9 @@ public class Duke {
         if(commands.isBlank()) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        tasks.add(i, new Task(commands));
+        tasks.add(i, new Task(commands.trim()));
         tasks.get(i).showAdded();
         System.out.println("\tNow you have "+(i+1)+" tasks in the list");
-        try {
-            appendToFile(f, "T | 0 | "+commands+System.lineSeparator());
-        }catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
     }
 
     void processDeadline(int i) throws TimeIsEmptyException, TaskIsEmptyException {
@@ -187,14 +202,9 @@ public class Duke {
             throw new TaskIsEmptyException();
         }
 
-        tasks.add(i, new Deadline(commands, by));
+        tasks.add(i, new Deadline(commands.trim(), by.trim()));
         tasks.get(i).showAdded();
         System.out.println("\tNow you have "+(i+1)+" tasks in the list");
-        try {
-            appendToFile(f, "D | 0 | "+commands+" | "+by+System.lineSeparator());
-        }catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
 
     }
 
@@ -220,14 +230,9 @@ public class Duke {
             throw new TaskIsEmptyException();
         }
 
-        tasks.add(i, new Event(commands, at));
+        tasks.add(i, new Event(commands.trim(), at.trim()));
         tasks.get(i).showAdded();
         System.out.println("\tNow you have "+(i+1)+" tasks in the list");
-        try {
-            appendToFile(f, "E | 0 | "+commands+" | "+at+System.lineSeparator());
-        }catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
 
     }
 

@@ -21,12 +21,20 @@ public class Task {
     }
 
     public void printTask() {
-        System.out.println("[T]"+"["+getStatusIcon()+"]"+description);
+        System.out.println("[T]"+"["+getStatusIcon()+"] "+description);
     }
 
 
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+    }
+
+    public String toFileFormat() {
+        if(isDone) {
+            return "T,1,"+description;
+        }else {
+            return "T,0,"+description;
+        }
     }
 
 
