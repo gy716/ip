@@ -1,4 +1,7 @@
 package duke;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,15 +10,61 @@ public class Duke {
     Scanner in = new Scanner(System.in);
     private String commands;
     ArrayList<Task> tasks = new ArrayList<>();
+    File f = new File("duke.txt");
+    int taskIndex = 0;
+
 
     Duke() {
         System.out.println("Hello, I am Duke!");
         System.out.println("What can I do for you?");
     }
 
-    void processCommands() {
+    void processFile() {
 
-        int taskIndex = 0;
+        try{
+            if(f.createNewFile()){
+                System.out.println("The file is not found.");
+                System.out.println("I have created this file now.");
+
+            }else{
+                Scanner s = new Scanner(f);
+                taskIndex = 0;
+                while(s.hasNextLine()){
+                    String[] words = s.nextLine().split("\\|");
+                    if(words[0].equals("T ")){
+                        tasks.add(taskIndex, new Task(words[2]));
+                        if(words[1].equals(" 1 ")) tasks.get(taskIndex).isDone = true;
+                        if(words[1].equals(" 0 ")) tasks.get(taskIndex).isDone = false;
+                        taskIndex++;
+                    }
+                    if(words[0].equals("D ")){
+                        tasks.add(taskIndex, new Deadline(words[2], words[3]));
+                        if(words[1].equals(" 1 ")) tasks.get(taskIndex).isDone = true;
+                        if(words[1].equals(" 0 ")) tasks.get(taskIndex).isDone = false;
+                        taskIndex++;
+                    }
+                    if(words[0].equals("E ")){
+                        tasks.add(taskIndex, new Event(words[2], words[3]));
+                        if(words[1].equals(" 1 ")) tasks.get(taskIndex).isDone = true;
+                        if(words[1].equals(" 0 ")) tasks.get(taskIndex).isDone = false;
+                        taskIndex++;
+                    }
+                }
+            }
+
+        }catch (IOException e){
+            System.out.println("Some errors occurred.");
+        }
+
+    }
+
+    void appendToFile(File filePath, String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath,true);
+        fw.write(text);
+        fw.close();
+    }
+
+    void processCommands() {
 
         while(true) {
 
@@ -91,7 +140,6 @@ public class Duke {
     }
 
     void processList() {
-        System.out.println("\tHere are the list:");
         for(int i = 0; i < tasks.size(); i++){
             System.out.print("\t\t"+(i+1)+" ");
             tasks.get(i).printTask();
@@ -110,6 +158,11 @@ public class Duke {
         tasks.add(i, new Task(commands));
         tasks.get(i).showAdded();
         System.out.println("\tNow you have "+(i+1)+" tasks in the list");
+        try {
+            appendToFile(f, "T | 0 | "+commands+System.lineSeparator());
+        }catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     void processDeadline(int i) throws TimeIsEmptyException, TaskIsEmptyException {
@@ -137,6 +190,11 @@ public class Duke {
         tasks.add(i, new Deadline(commands, by));
         tasks.get(i).showAdded();
         System.out.println("\tNow you have "+(i+1)+" tasks in the list");
+        try {
+            appendToFile(f, "D | 0 | "+commands+" | "+by+System.lineSeparator());
+        }catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
 
     }
 
@@ -165,6 +223,11 @@ public class Duke {
         tasks.add(i, new Event(commands, at));
         tasks.get(i).showAdded();
         System.out.println("\tNow you have "+(i+1)+" tasks in the list");
+        try {
+            appendToFile(f, "E | 0 | "+commands+" | "+at+System.lineSeparator());
+        }catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
 
     }
 
@@ -184,6 +247,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke d1 = new Duke();
+        d1.processFile();
         d1.processCommands();
     }
 
