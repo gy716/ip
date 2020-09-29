@@ -48,13 +48,13 @@ public class Storage {
                     taskIndex++;
                 }
                 if (words[0].equals("D")) {
-                    tasks.add(taskIndex, new Deadline(words[2], LocalDateTime.parse(words[3], DateTimeFormatter.ofPattern("yyyy-M-d H:mm"))));
+                    tasks.add(taskIndex, new Deadline(words[2], LocalDateTime.parse(words[3])));
                     if (words[1].equals("1")) tasks.get(taskIndex).isDone = true;
                     if (words[1].equals("0")) tasks.get(taskIndex).isDone = false;
                     taskIndex++;
                 }
                 if (words[0].equals("E")) {
-                    tasks.add(taskIndex, new Event(words[2], LocalDateTime.parse(words[3], DateTimeFormatter.ofPattern("yyyy-M-d H:mm"))));
+                    tasks.add(taskIndex, new Event(words[2], LocalDateTime.parse(words[3])));
                     if (words[1].equals("1")) tasks.get(taskIndex).isDone = true;
                     if (words[1].equals("0")) tasks.get(taskIndex).isDone = false;
                     taskIndex++;

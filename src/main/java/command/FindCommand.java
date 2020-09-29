@@ -17,7 +17,7 @@ public class FindCommand extends Command{
 
         boolean isKeywordExist = false;
         for(int i = 0; i < tasks.getSize(); i++) {
-            if(tasks.getTask(i).description.contains(keyword)) {
+            if(!keyword.isBlank() && tasks.getTask(i).description.contains(keyword)) {
                 System.out.println("Task Index: "+(i+1));
                 System.out.println(tasks.getTask(i).toStringFormat());
                 System.out.print("\n");
