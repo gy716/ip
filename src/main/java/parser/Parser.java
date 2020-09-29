@@ -5,11 +5,21 @@ import data.Deadline;
 import data.Event;
 import data.Todo;
 import DukeExceptions.DukeExceptions;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
+    /**
+     * Identifies the type of commands
+     * and sends them to command class for further execution.
+     *
+     * @param commandWord the user's input.
+     * @return different new instances of command class.
+     * @throws DukeExceptions if the user's input is invalid.
+     */
     public Command parse(String commandWord) throws DukeExceptions {
 
         String[] words = commandWord.split(" ");
@@ -27,15 +37,28 @@ public class Parser {
 
     }
 
+    /**
+     * Gets the description of a to-do task.
+     *
+     * @param commandWord the user's input.
+     * @return a new to-do task.
+     * @throws ArrayIndexOutOfBoundsException if the description is empty.
+     */
     Todo processTodo(String commandWord) throws ArrayIndexOutOfBoundsException{
-
         commandWord = commandWord.substring("todo".length());
         if(commandWord.isBlank()) throw new ArrayIndexOutOfBoundsException();
         return new Todo(commandWord.trim());
-
     }
 
-    Deadline processDeadline(String commandWord) throws DukeExceptions {
+    /**
+     * Gets the description and the time of a deadline task.
+     *
+     * @param commandWord the user's input.
+     * @return a new deadline task.
+     * @throws DukeExceptions if the user's input misses out the description or the time.
+     * @throws DateTimeException if the time is not in the required format.
+     */
+    Deadline processDeadline(String commandWord) throws DukeExceptions, DateTimeException {
 
         if(commandWord.substring("deadline".length()).isBlank()) {
             throw new DukeExceptions();
@@ -62,7 +85,15 @@ public class Parser {
 
     }
 
-    Event processEvent(String commandWord) throws DukeExceptions {
+    /**
+     * Gets the description and the time of an event task.
+     *
+     * @param commandWord the user's input.
+     * @return a new event task.
+     * @throws DukeExceptions if the user's input misses out the description or the time.
+     * @throws DateTimeException if the time is not in the required format.
+     */
+    Event processEvent(String commandWord) throws DukeExceptions, DateTimeException {
 
         if(commandWord.substring("event".length()).isBlank()) {
             throw new DukeExceptions();

@@ -23,6 +23,13 @@ public class Storage {
         this.filepath = filepath;
     }
 
+    /**
+     * Creates the task file if the file does not exit
+     * and loads the task file.
+     *
+     * @return a task list with the content of the task file.
+     * @throws IOException if the file cannot be created for some reasons.
+     */
     public ArrayList<Task> load() throws IOException {
 
         File f = new File(filepath);
@@ -58,18 +65,36 @@ public class Storage {
 
     }
 
+    /**
+     * Appends to a file other than overwrites it.
+     *
+     * @param file the file be appended to.
+     * @param text the text to be added.
+     * @throws IOException if the file cannot be written for some reasons.
+     */
     public void appendToFile(File file, String text) throws IOException {
         FileWriter fw = new FileWriter(file,true);
         fw.write(text);
         fw.close();
     }
 
+
+    /**
+     * Overwrites a file.
+     *
+     * @param file the file be overwritten.
+     * @param text the text to be added.
+     * @throws IOException if the file cannot be written for some reasons.
+     */
     public void writeToFile(File file, String text) throws IOException {
         FileWriter fw = new FileWriter(file);
         fw.write(text);
         fw.close();
     }
 
+    /**
+     * Clears all the content of a file and adds tasks to it
+     */
     public void updateFile() {
         try {
             File f = new File(filepath);
