@@ -28,6 +28,7 @@ public class Duke{
         }
     }
 
+    /** Runs the program until the user enters command "exit" */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
