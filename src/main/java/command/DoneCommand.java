@@ -16,7 +16,7 @@ public class DoneCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.getTask(taskIndex-1).isDone = true;
         ui.showTaskCompleted();
-        System.out.println("\t\t"+tasks.getTask(taskIndex-1).toStringFormat());
+        System.out.println("\t"+tasks.getTask(taskIndex-1).toStringFormat());
         storage.updateFile();
     }
 
