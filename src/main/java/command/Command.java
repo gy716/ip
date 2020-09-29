@@ -1,6 +1,5 @@
 package command;
 
-import data.Task;
 import data.TaskList;
 import storage.Storage;
 import ui.Ui;

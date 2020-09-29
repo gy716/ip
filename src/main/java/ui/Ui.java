@@ -1,7 +1,5 @@
 package ui;
 
-import data.Task;
-
 import java.util.Scanner;
 
 public class Ui {
@@ -22,22 +20,31 @@ public class Ui {
     }
 
     public void showTaskAdded() {
-        System.out.println("\tGot it! I've added this task in the list:");
+        System.out.println("Got it! I've added this task in the list:");
     }
 
     public void showTaskCompleted() {
-        System.out.println("\tNice! I've marked this work as done:");
+        System.out.println("Nice! I've marked this work as done:");
     }
 
     public void showTaskDeleted() {
-        System.out.println("\tNoted! I've removed this task:");
+        System.out.println("Noted! I've removed this task:");
     }
 
     public void showCommandError() {
-        System.out.println("OOPS!! Your input or the file loaded has something wrong.");
+        System.out.println("OOPS!! Your input has something wrong.");
     }
 
     public void showGoodBye() {
         System.out.println("Good Bye! Hope to see you again!");
+    }
+
+    public void showTimeError() {
+        System.out.println("OOPS!! The time format is incorrect!");
+    }
+
+    public void showLoadingError() {
+        System.out.println("OOPS!! The input file does not exist and I cannot create it!");
+        System.out.println("Please seek for further assistance.");
     }
 }

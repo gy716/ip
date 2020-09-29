@@ -4,7 +4,7 @@ import data.TaskList;
 import storage.Storage;
 import ui.Ui;
 
-public class ExitCommand extends command.Command {
+public class ExitCommand extends Command {
 
     @Override
     public boolean isExit() {

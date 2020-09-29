@@ -1,11 +1,10 @@
 package command;
 
-import data.Task;
 import data.TaskList;
 import storage.Storage;
 import ui.Ui;
 
-public class DoneCommand extends command.Command {
+public class DoneCommand extends Command {
 
     int taskIndex;
 

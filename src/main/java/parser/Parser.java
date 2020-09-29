@@ -5,7 +5,8 @@ import data.Deadline;
 import data.Event;
 import data.Todo;
 import DukeExceptions.DukeExceptions;
-import ui.Ui;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
@@ -45,6 +46,7 @@ public class Parser {
         }
 
         String by = commandWord.substring(commandWord.indexOf("/by") + "/by".length());
+        LocalDate newBy = LocalDate.parse(by.trim(), DateTimeFormatter.ofPattern("yyyy-M-d"));
 
         if (by.isBlank()) {
             throw new DukeExceptions();
@@ -56,7 +58,7 @@ public class Parser {
             throw new DukeExceptions();
         }
 
-        return new Deadline(commandWord.trim(), by.trim());
+        return new Deadline(commandWord.trim(), newBy);
 
     }
 
@@ -71,6 +73,7 @@ public class Parser {
         }
 
         String at = commandWord.substring(commandWord.indexOf("/at") + "/at".length());
+        LocalDate newAt = LocalDate.parse(at.trim(), DateTimeFormatter.ofPattern("yyyy-M-d"));
 
         if (at.isBlank()) {
             throw new DukeExceptions();
@@ -82,7 +85,7 @@ public class Parser {
             throw new DukeExceptions();
         }
 
-        return new Event(commandWord.trim(), at.trim());
+        return new Event(commandWord.trim(), newAt);
 
     }
 

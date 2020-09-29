@@ -6,9 +6,8 @@ import parser.Parser;
 import DukeExceptions.DukeExceptions;
 import storage.Storage;
 import ui.Ui;
-
-import java.io.File;
 import java.io.IOException;
+import java.time.DateTimeException;
 
 public class Duke{
 
@@ -16,10 +15,17 @@ public class Duke{
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) throws IOException {
+    public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        try{
+            storage = new Storage(filePath);
+            tasks = new TaskList(storage.load());
+        }catch (IOException e){
+            ui.showLoadingError();
+            System.exit(0);
+        }catch (DateTimeException e){
+            ui.showTimeError();
+        }
     }
 
     public void run() {
@@ -34,13 +40,15 @@ public class Duke{
                 isExit = c.isExit();
             } catch (DukeExceptions | IndexOutOfBoundsException e) {
                 ui.showCommandError();
+            } catch (DateTimeException e){
+                ui.showTimeError();
             } finally {
                 ui.showLine();
             }
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Duke("duke.txt").run();
     }
 

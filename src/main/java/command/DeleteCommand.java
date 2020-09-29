@@ -5,7 +5,7 @@ import data.TaskList;
 import storage.Storage;
 import ui.Ui;
 
-public class DeleteCommand extends command.Command {
+public class DeleteCommand extends Command {
 
     int taskIndex;
 
@@ -18,8 +18,8 @@ public class DeleteCommand extends command.Command {
         Task t = tasks.getTask(taskIndex-1);
         tasks.deleteTask(taskIndex-1);
         ui.showTaskDeleted();
-        System.out.println("\t\t"+t.toStringFormat());
-        System.out.println("\tNow you have "+tasks.getSize()+" tasks in the list");
+        System.out.println("\t"+t.toStringFormat());
+        System.out.println("The number of tasks is: "+tasks.getSize());
         storage.updateFile();
     }
 }

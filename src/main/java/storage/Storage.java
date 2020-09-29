@@ -8,7 +8,8 @@ import data.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,35 +17,41 @@ public class Storage {
 
     int taskIndex = 0;
     String filepath;
+    ArrayList<Task> tasks = new ArrayList<>();
 
     public Storage(String filepath){
         this.filepath = filepath;
     }
-    ArrayList<Task> tasks = new ArrayList<>();
 
     public ArrayList<Task> load() throws IOException {
 
-        Scanner s = new Scanner(Path.of(filepath));
+        File f = new File(filepath);
 
-        while(s.hasNextLine()){
-            String[] words = s.nextLine().split(",");
-            if(words[0].equals("T")){
-                tasks.add(taskIndex, new Todo(words[2]));
-                if(words[1].equals("1")) tasks.get(taskIndex).isDone = true;
-                if(words[1].equals("0")) tasks.get(taskIndex).isDone = false;
-                taskIndex++;
-            }
-            if(words[0].equals("D")){
-                tasks.add(taskIndex, new Deadline(words[2], words[3]));
-                if(words[1].equals("1")) tasks.get(taskIndex).isDone = true;
-                if(words[1].equals("0")) tasks.get(taskIndex).isDone = false;
-                taskIndex++;
-            }
-            if(words[0].equals("E")){
-                tasks.add(taskIndex, new Event(words[2], words[3]));
-                if(words[1].equals("1")) tasks.get(taskIndex).isDone = true;
-                if(words[1].equals("0")) tasks.get(taskIndex).isDone = false;
-                taskIndex++;
+        if(f.createNewFile()){
+            System.out.println("OOPS!! I cannot find the input file!");
+            System.out.println("Let me create the file for you!");
+        }else {
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String[] words = s.nextLine().split(",");
+                if (words[0].equals("T")) {
+                    tasks.add(taskIndex, new Todo(words[2]));
+                    if (words[1].equals("1")) tasks.get(taskIndex).isDone = true;
+                    if (words[1].equals("0")) tasks.get(taskIndex).isDone = false;
+                    taskIndex++;
+                }
+                if (words[0].equals("D")) {
+                    tasks.add(taskIndex, new Deadline(words[2], LocalDate.parse(words[3], DateTimeFormatter.ofPattern("yyyy-M-d"))));
+                    if (words[1].equals("1")) tasks.get(taskIndex).isDone = true;
+                    if (words[1].equals("0")) tasks.get(taskIndex).isDone = false;
+                    taskIndex++;
+                }
+                if (words[0].equals("E")) {
+                    tasks.add(taskIndex, new Event(words[2], LocalDate.parse(words[3], DateTimeFormatter.ofPattern("yyyy-M-d"))));
+                    if (words[1].equals("1")) tasks.get(taskIndex).isDone = true;
+                    if (words[1].equals("0")) tasks.get(taskIndex).isDone = false;
+                    taskIndex++;
+                }
             }
         }
         return tasks;
@@ -71,7 +78,7 @@ public class Storage {
                 appendToFile(f, task.toFileFormat() + System.lineSeparator());
             }
         } catch (IOException e){
-            System.out.println("Some errors occurred.");
+            System.out.println("Sorry! Some errors occurred and I cannot update tasks to file!");
         }
     }
 
