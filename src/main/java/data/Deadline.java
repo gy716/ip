@@ -1,19 +1,19 @@
 package data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    LocalDate by;
+    LocalDateTime by;
 
-    public Deadline(String description, LocalDate by){
+    public Deadline(String description, LocalDateTime by){
         super(description);
         this.by = by;
     }
 
     @Override
     public String toStringFormat() {
-        return "[D]"+super.toStringFormat()+" (by: "+by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))+")";
+        return "[D]"+super.toStringFormat()+" (by: "+by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))+")";
     }
 
     @Override
