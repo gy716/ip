@@ -3,7 +3,7 @@ package data;
 public class Task{
 
     public boolean isDone;
-    protected String description;
+    public String description;
 
 
     public Task(String description) {

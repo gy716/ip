@@ -22,6 +22,7 @@ public class Parser {
             case "event": return new AddCommand(processEvent(commandWord));
             case "done": return new DoneCommand(Integer.parseInt(words[1]));
             case "delete": return new DeleteCommand(Integer.parseInt(words[1]));
+            case "find": return new FindCommand(commandWord.substring("find".length()).trim());
             default: throw new DukeExceptions();
         }
 
