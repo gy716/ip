@@ -1,20 +1,20 @@
 package data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
 
-    LocalDate at;
+    LocalDateTime at;
 
-    public Event(String description, LocalDate at){
+    public Event(String description, LocalDateTime at){
         super(description);
         this.at = at;
     }
 
     @Override
     public String toStringFormat() {
-        return "[E]"+super.toStringFormat()+" (at: "+at.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))+")";
+        return "[E]"+super.toStringFormat()+" (at: "+at.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))+")";
     }
 
     @Override
