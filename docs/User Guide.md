@@ -20,17 +20,17 @@ Command Line Interface (CLI).**
 ### Adding a task
 Add a task to the task list of Duke.
 > Duke supports for managing three types of class: 
-   * Type `todo`: Normal tasks without any dates or times attached to it.
-      
-      eg.  go to lab for the project.
-      
-   * Type `deadline`: tasks that need to be done before a specific date/time. 
-   
-      eg.  submit essay by 11/10/2019 5pm.
-      
-   * Type `event`: tasks that start at a specific time and ends at a specific time.
-   
-      eg.  team project meeting on 2/10/2019 2-4pm.    
+>  * Type `todo`: Normal tasks without any dates or times attached to it.
+>    
+>      eg.  go to lab for the project.
+>      
+>   * Type `deadline`: tasks that need to be done before a specific date/time. 
+>   
+>      eg.  submit essay by 11/10/2019 5pm.
+>      
+>   * Type `event`: tasks that start at a specific time and ends at a specific time.
+>   
+>      eg.  team project meeting on 2/10/2019 2-4pm.    
 
 
 
