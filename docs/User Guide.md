@@ -25,8 +25,11 @@ Add a task to the task list of Duke.
       eg.  go to lab for the project.
       
    * Type `deadline`: tasks that need to be done before a specific date/time. 
+   
       eg.  submit essay by 11/10/2019 5pm.
+      
    * Type `event`: tasks that start at a specific time and ends at a specific time.
+   
       eg.  team project meeting on 2/10/2019 2-4pm.    
 
 
@@ -34,6 +37,7 @@ Add a task to the task list of Duke.
 
 * **Adding a `todo` task**
     Command format: `todo TASK`
+    
     Examples:
         `todo borrow book`.
         `todo go to theme park`.
@@ -48,6 +52,7 @@ Add a task to the task list of Duke.
     >
     > **The TIME must strictly follow this format: `yyyy-mm-ddThr:mm`**, which indicates
     > that the **month, date, hour, minute must be 2 digit.**
+    
     > Correct format: eg. `2020-09-30T12:18`, `2020-12-03T03:05`
     >
     > Wrong format: eg. `2020-9-30T12:18`, `2020-12-3T3:05`
@@ -62,6 +67,7 @@ Add a task to the task list of Duke.
 * **Adding a `event` task**
 
     Command format: `event TASK /at TIME`
+    
     Examples: 
         `event team meeting /at 2020-11-03T16:00`
 
@@ -72,6 +78,7 @@ Add a task to the task list of Duke.
 Show the task list of Duke.
 
 Command format: `list`
+
 Example: `list`
 
 
@@ -81,6 +88,7 @@ Example: `list`
 Delete a specific task by task index.
 
 Command format: `delete NUMBER`
+
 Examples:
     `delete 1`
     `delete 5`
@@ -92,6 +100,7 @@ Examples:
 Find the tasks that match with the keyword input by users.
 
 Command format: `find KEYWORD`
+
 Examples: 
     `find book`
     `find meeting`
@@ -102,6 +111,7 @@ Examples:
 Exit the app
 
 Command format: `exit`.
+
 Example: `exit`.
 
 - - -
