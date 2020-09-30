@@ -50,7 +50,7 @@ public class Duke{
     }
 
     public static void main(String[] args) {
-        new Duke("src/duke.txt").run();
+        new Duke("duke.txt").run();
     }
 
 }
